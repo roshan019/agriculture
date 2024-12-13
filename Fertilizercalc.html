@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Overview</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3, h1 {
+            text-align: center;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .cancel-btn {
+            background-color: #f44336;
+        }
+
+        .cancel-btn:hover {
+            background-color: #da392f;
+        }
+
+        .info-icon {
+            font-size: 16px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Banana Expenses Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <button class="btn btn-secondary float-left">&larr;</button>
+                <h2 class="card-title float-left ml-3">Banana Expenses</h2>
+                <select class="form-control float-right w-25" id="product-select">
+                    <option value="Banana">🍌 Banana</option>
+                    <option value="Wheat">🌾 Wheat</option>
+                    <option value="Rice">🍚 Rice</option>
+                </select>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="card-title" id="product-title">
+                            Banana Total Profit <span class="info-icon">ℹ️</span>
+                        </h2>
+                        <p class="card-text">₹<span id="total-profit">0</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="card-title" id="income-title">
+                            Income ₹<span id="income">0</span>
+                        </h3>
+                        <div class="form-group">
+                            <label for="yield">Yield*</label>
+                            <input type="number" id="yield" placeholder="0" min="0" required class="form-control" />
+                            <small class="text-muted">kg</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price per kilo*</label>
+                            <input type="number" id="price" placeholder="₹0" min="0" required class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add New Expense Form -->
+        <div class="container">
+            <h2>Add New Expense</h2>
+            <p class="expense">Total Expense: <span id="totalExpense">0</span></p>
+            <form id="expenseForm">
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="Food">Food</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Electricity">Electricity</option>
+                    <option value="Irrigation">Irrigation</option>
+                </select>
+                <label for="name">Expense name (optional):</label>
+                <input type="text" id="name" placeholder="Enter expense name..." />
+                <label for="price">Price:</label>
+                <input type="number" id="expense-price" placeholder="Enter price..." min="0" required />
+                <label for="date">Date:</label>
+                <input type="date" id="date" required />
+                <button type="submit" id="addExpenseBtn">Add Expense</button>
+                <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Financial Overview Section -->
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let totalExpense = 0; // Initialize total expense
+
+            $("#product-select").on("change", function () {
+                var selectedProduct = $(this).val();
+                $("#product-title").text(selectedProduct + " Total Profit ℹ️");
+                $("#income-title").text("Income ₹" + selectedProduct);
+                $("#expenses-title").text("Expenses ₹" + selectedProduct);
+            });
+
+            // Calculate profit when yield, price, or expenses change
+            function calculateProfit() {
+                var yieldValue = parseFloat($("#yield").val()) || 0;
+                var priceValue = parseFloat($("#price").val()) || 0;
+                var expensesValue = totalExpense;
+
+                var income = yieldValue * priceValue;
+                var profit = income - expensesValue;
+
+                $("#income").text(income);
+                $("#total-profit").text(profit);
+                $("#estimated-profit").text(profit); // Display estimated profit
+            }
+
+            $("#yield, #price").on("input", calculateProfit);
+
+            document.getElementById("expenseForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const category = document.getElementById("category").value;
+                const name = document.getElementById("name").value;
+                const price = document.getElementById("expense-price").value;
+                const date = document.getElementById("date").value;
+
+                if (price) {
+                    const expense = {
+                        category: category,
+                        name: name,
+                        price: parseFloat(price),
+                        date: date,
+                    };
+
+                    // Update total expense
+                    totalExpense += expense.price;
+                    document.getElementById("totalExpense").innerText = totalExpense.toFixed(2); // Update displayed total expense
+
+                    // Mock API call (replace with your actual API endpoint)
+                    fetch("https://example.com/api/expenses", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(expense),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Expense added:", data);
+                        // Optionally, reset the form or show a success message
+                        document.getElementById("expenseForm").reset();
+                        calculateProfit(); // Recalculate profit after adding expense
+                    })
+                    .catch((error) => {
+                        console.error("Error adding expense:", error);
+                    });
+                } else {
+ alert("Please enter a valid price.");
+                }
+            });
+
+            document.getElementById("cancelBtn").addEventListener("click", function () {
+                document.getElementById("expenseForm").reset();
+            });
+        });
+    </script>
+    <script src="cost1.js"></script>
+</body>
+</html>

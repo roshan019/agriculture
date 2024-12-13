@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrient Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Nutrient Calculator</h1>
+    <div class="form-group">
+        <label for="crop">See relevant information on:</label>
+        <select id="crop" class="form-control" onchange="updateNutrientValues()">
+            <option value="sugarcane">Sugarcane</option>
+            <option value="rice">Rice</option>
+            <option value="wheat">Wheat</option>
+            <option value="maize">Maize</option>
+            <option value="carrot">Carrot</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="n">N:</label>
+            <input type="number" id="n" class="form-control" value="500">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="p">P:</label>
+            <input type="number" id="p" class="form-control" value="200">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="k">K:</label>
+            <input type="number" id="k" class="form-control" value="200">
+        </div>
+    </div>
+    <button class="btn btn-primary" onclick="editNutrient()">Edit</button>
+    
+    <div class="form-group mt-3">
+        <label>Unit:</label><br>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="acre" name="unit" value="Acre" checked>
+            <label class="form-check-label" for="acre">Acre</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="hectare" name="unit" value="Hectare">
+            <label class="form-check-label" for="hectare">Hectare</label>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="plotSize">Plot Size:</label>
+        <input type="number" id="plotSize" class="form-control" value="1.0">
+    </div>
+    
+    <button class="btn btn-success" onclick="calculateRequirements()">Calculate Requirements</button>
+    
+    <div id="output" class="mt-4"></div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+const cropNutrientRequirements = {
+    sugarcane: { n: 500, p: 200 },
+    rice: { n: 120, p: 40 },
+    wheat: { n: 150, p: 60 },
+    maize: { n: 180, p: 50 },
+    carrot: { n: 100, p: 30 }
+};
+
+function updateNutrientValues() {
+    const selectedCrop = document.getElementById('crop').value;
+    const nutrients = cropNutrientRequirements[selectedCrop];
+    document.getElementById('n').value = nutrients.n;
+    document.getElementById(' p').value = nutrients.p;
+}
+
+function calculateRequirements() {
+    const n = parseFloat(document.getElementById('n').value);
+    const p = parseFloat(document.getElementById('p').value);
+    const unit = document.querySelector('input[name="unit"]:checked').value;
+    const plotSize = parseFloat(document.getElementById('plotSize').value);
+
+    // Calculate the total N and P required based on plot size
+    const totalN = n * plotSize; // Total N required
+    const totalP = p * plotSize; // Total P required
+
+    // Calculate Urea and DAP requirements
+    const ureaNContent = 0.46; // Urea contains 46% N
+    const dapNContent = 0.18; // DAP contains 18% N
+    const dapPContent = 0.46; // DAP contains 46% P
+
+    const ureaRequired = totalN / ureaNContent; // Amount of Urea needed
+    const dapRequired = totalP / dapPContent; // Amount of DAP needed
+
+    const output = `Nutrient Quantities (N:P:K): ${n}:${p}:${k} for ${plotSize} ${unit}\n` +
+                   `Urea Required: ${ureaRequired.toFixed(2)} kg\n` +
+                   `DAP Required: ${dapRequired.toFixed(2)} kg`;
+    document.getElementById('output').innerText = output;
+}
+
+function editNutrient() {
+    // Functionality to edit nutrient values can be added here
+    alert('Edit functionality not implemented yet.');
+}
+</script>
+</body>
+</html>

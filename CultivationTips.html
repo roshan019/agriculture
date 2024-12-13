@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Cultivation Tips</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .task-icon {
+            margin-right: 10px;
+        }
+        .task-arrow {
+            margin-left: auto;
+            font-size: 16px;
+        }
+        .row {
+            flex-direction: column;
+        }
+        .container {
+            width: 100%;
+        }
+        .details {
+            display: none; /* Hide details by default */
+            margin-top: 20px; /* Add margin for better spacing */
+        }
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add hover effect */
+        }
+        .task-details {
+            display: none; /* Hide task details by default */
+            margin-top: 10px; /* Add margin for better spacing */
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-light p-2 d-flex justify-content-between align-items-center">
+        <div class="back-button" aria-label="Back">&larr;</div>
+        <h1 class="h5 m-0">Cultivation Tips</h1>
+        <div class="crop-dropdown">
+            <select id="crop-select" class="form-control" aria-label="Select Crop">
+                <option value="bean">Bean</option>
+                <option value="corn">Corn</option>
+                <option value="soybean">Soybean</option>
+                <option value="rice">Rice</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="container mt-3">
+        <div class="row" id="task-list">
+            <!-- Tasks will be dynamically generated here -->
+        </div>
+        <div class="details" id="rice-details">
+            <h5>Rice Planting Details</h5>
+            <p>
+                Preparation: Land Preparation: Plow the field to a fine tilth. Level the field to ensure even water distribution. Create dikes to hold water in the field. Seed Preparation: Soak the seeds in water for 24-48 hours to promote germination. Drain the water and allow the seeds to germinate in a warm, humid environment. Planting: Transplanting (Common Method): Grow seedlings in a nursery. Transplant the seedlings into the flooded field, spacing them evenly. Direct Seeding: Broadcast the seeds evenly over the prepared field and cover them lightly with soil. Cultivation: Flooding: Maintain a constant water level in the field, ensuring the plants are submerged. Adjust the water level as the plants grow. Weeding and Pest Control: Regularly remove weeds to prevent competition for nutrients and water. Monitor for pests and diseases and take appropriate control measures. Harvesting: When the rice grains are mature and the stalks turn golden brown, harvest the crop. Harvest by hand or using mechanical harvesters. Thresh the harvested crop to separate the grains.
+            </p>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center p-3 mt-4">
+        <p class="mb-0">Cultivation Tips &copy; 2023</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const tasks = {
+            bean: ["Soil Preparation", "Planting", "Watering"],
+            corn: ["Fertilizing", "Pest Control", "Harvesting"],
+            soybean: ["Weeding", "Growth Monitoring", "Storage"],
+            rice: ["Planting", "Fertilizing", "Weeding", "Harvesting"],
+        };
+
+        const taskDetails = {
+            "Planting": "Transplanting (Common Method): Grow seedlings in a nursery . Transplant the seedlings into the flooded field, spacing them evenly. Direct Seeding: Broadcast the seeds evenly over the prepared field and cover them lightly with soil.",
+            "Soil Preparation": "Plow the field to a fine tilth. Level the field to ensure even water distribution. Create dikes to hold water in the field.",
+            "Watering": "Maintain a constant water level in the field, ensuring the plants are submerged. Adjust the water level as the plants grow.",
+            "Fertilizing": "Fertilization is a critical aspect of rice cultivation, as it provides essential nutrients for optimal plant growth and yield. Rice plants require a balanced supply of nitrogen, phosphorus, and potassium, as well as micronutrients like zinc and iron.   Types of Fertilizers:Organic Fertilizers: These include compost, manure, and green manure, which are rich in organic matter and slowly release nutrients into the soil.  Inorganic Fertilizers: These are synthetic fertilizers containing specific nutrients in a concentrated form. They provide a quick and readily available source of nutrients for the plants.   Fertilization Timing:Fertilizers are typically applied at different stages of rice growth, including:Basal Application: Applied at the time of planting or transplanting to provide a foundation for early growth. ",
+            "Pest Control": "Monitor for pests and diseases and take appropriate control measures. Use integrated pest management strategies.",
+            "Harvesting": "Harvesting is the final stage of rice cultivation, where the mature rice plants are cut and gathered. The timing of harvesting is crucial, as it can significantly impact the yield and quality of the grain.   Methods of Harvesting:Manual Harvesting: This traditional method involves cutting the rice plants by hand using a sickle or a knife. The harvested crop is thenbundled and dried in the field.   Mechanical Harvesting: Modern techniques involve the use of combine harvesters, which cut, thresh, and separate the grains from thestalks in a single operation. This method is more efficient and less labor-intensive.   ",
+            "Weeding": "Weeding is the process of removing unwanted plants (weeds) from the rice field. Weeds compete with rice plants for water, nutrients, and sunlight, reducing yield and quality.   Methods of Weeding:Manual Weeding: This involves manually pulling or cutting weeds by hand using tools like hoes or sickles.  Mechanical Weeding: This involves the use of rotary weeders or other mechanical equipment to remove weeds.Chemical Weeding: This involves the application of herbicides to kill weeds. However, it is important to use herbicides carefully to avoid harming the rice plants. ",
+            "Growth Monitoring": "Keep track of plant growth stages and health to ensure optimal conditions.",
+            "Storage": "Store harvested crops in a cool, dry place to prevent spoilage."
+        };
+
+        const cropSelect = document.getElementById("crop-select");
+        const taskList = document.getElementById("task-list");
+        const riceDetails = document.getElementById("rice-details");
+
+        cropSelect.addEventListener("change", (event) => {
+            const selectedCrop = event.target.value;
+            const taskHtml = tasks[selectedCrop]
+                .map((task, index) => `
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card task-card" data-task="${task}">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="task-icon">&#${128172 + index};</div>
+                                <div class="task-text font-weight-bold">${task}</div>
+                                <div class="task-arrow ml-auto">&rarr;</div>
+                            </div>
+                            <div class="task-details">${taskDetails[task]}</div>
+                        </div>
+                    </div>
+                `)
+                .join("");
+            taskList.innerHTML = taskHtml;
+
+            // Show or hide rice details based on selection
+            if (selectedCrop === "rice") {
+                riceDetails.style.display = "block";
+            } else {
+                riceDetails.style.display = "none";
+            }
+
+            // Add click event listeners to task cards
+            document.querySelectorAll('.task-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const details = card.querySelector('.task-details');
+                    details.style.display = details.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+        });
+
+        // Initialize task list with default crop (bean)
+        cropSelect.dispatchEvent(new Event("change"));
+    </script>
+</body>
+</html>

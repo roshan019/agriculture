@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f5ff;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .back-btn {
+    font-size: 18px;
+    border: none;
+    background: none;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .profit-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profit-section h2 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .profit-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .crops-section .crops-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .crops-section h3 {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .add-btn {
+    font-size: 14px;
+    color: #007bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .crops-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .crops-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+  }
+  
+  .crops-list img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  .crop-name {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .crop-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  

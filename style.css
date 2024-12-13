@@ -1,0 +1,180 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(202, 198, 198);
+}
+
+.take-picture{
+    width: 100%;
+    border-radius: 80px;
+    border: none;
+    background-color:  rgb(54, 54, 185);
+    height: 30px;
+}
+
+
+header {
+    background-color: #e0f7fa;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icons img {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    gap: 10px;
+    margin: 10px;
+    flex-direction: horizontal;
+    justify-content: left;
+    border-radius: 20px;
+}
+
+  
+
+.weather {
+    text-align: center;
+    justify-content: center;
+    border-radius: 50px;
+    display: flex;
+    background-color: beige;
+    padding: 5px;
+    margin: 5px;
+
+}
+
+.temp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.temp img {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+}
+
+main {
+    padding: 20px;
+}
+
+.heal-crop {
+    background-color: #ffffff;
+    font-size: medium;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    
+}
+.icon{
+    width: 40px;
+    height: 40px;
+}
+
+.crop-steps {
+    display: flex;
+    justify-content: space-between;
+}
+
+.step {
+    text-align: center;
+}
+
+.step img {
+    width: 40px;
+    height: 40px;
+}
+
+.features {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feature {
+    background-color: #f1f8e9;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+    margin: 0 5px;
+    justify-content: center;
+    display: flex;
+}
+
+.feature img {
+    width: 40px;
+    height: 40px;
+}
+
+.feature-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #e0f7fa;
+}
+
+.back-Picture {
+    background-image: url('image/agrpic.webp');
+    background-size: cover;
+    background-position: center;
+    height: 60vh; /* Set the height to the full viewport height */
+  }
+
+
+  .file-input-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */ /* Full viewport height */
+    background-color: aquamarine;
+
+}
+.text-center {
+    text-align: center; /* Center text inside the input */
+    align-items: center;
+    
+}
+/* input[type="file"] {
+    display: none; /* Hide the default file input */
+/* } */ */
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    border-radius: 6px;
+}
+
+
+.upload-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 1rem 0;
+}
+
+.upload-button:hover {
+    background-color: #388E3C;
+}
+
+.upload-text {
+    color: #666;
+    font-size: 0.875rem;
+}
